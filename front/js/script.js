@@ -45,6 +45,6 @@ fetch("http://localhost:3000/api/products")
 	}
 })
 .catch(function(err) {
-	console.log("A wild error happens");
+	console.log("Erreur de la requête API , Veuillez vérifier que le serveur est bien en ligne ou bien  contacté nous pour autre soucis ");
 	console.log(err);
 });

@@ -25,7 +25,8 @@ function getArticle() {
         }
     })
     .catch((error) => {
-        console.log("Erreur de la requête API");
+        console.log("Erreur de la requête API , Veuillez vérifier que le serveur est bien en ligne ou contacté nous");
+		console.log(err);
     })
 }
     
