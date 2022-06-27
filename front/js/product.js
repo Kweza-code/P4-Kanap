@@ -26,7 +26,7 @@ function getArticle() {
     })
     .catch((error) => {
         console.log("Erreur de la requête API , Veuillez vérifier que le serveur est bien en ligne ou contacté nous");
-		console.log(err);
+		
     })
 }
     
@@ -62,11 +62,21 @@ function getPost(article){
 
  // listening event "click" on addToCart
 
- let btn = document.getElementById('addToCart')
- btn.addEventListener('click' , function() {
-
- })
-   
  
   
-   
+
+// local storage //
+let myCart = JSON.parse(localStorage.getItem("produit"));   
+   console.log(myCart);
+
+
+   if(myCart) {
+
+   }
+
+   else {
+    myCart = []
+    myCart.push(getPost);
+    localStorage.setItem("produit",JSON.stringify(myCart));
+    console.log(myCart)
+   }
