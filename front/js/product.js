@@ -4,8 +4,8 @@ var idProduct = url.searchParams.get("id");
 console.log(idProduct);
 
 
-const colorPicked = document. querySelector("#colors");
-const quantityPicked = document.querySelector("#quantity");
+const colorPicked = document.getElementById("colors")
+const quantityPicked = document.getElementById("quantity")
 
 getArticle();
 
@@ -53,12 +53,18 @@ function getPost(article){
     for (let colors of article.colors){
         console.table(colors);
         let productColors = document.createElement("option");
-        document.querySelector("#colors").appendChild(productColors);
+        document.getElementById("colors").appendChild(productColors);
         productColors.value = colors;
         productColors.innerHTML = colors;
     }
     addToCart(article);
-}
+
+
+    //Gestion du panier 
+
+    function addToCart(article) {
+    const btn_Panier = document.getElementById("addToCart")
+    }
 
  // listening event "click" on addToCart
 
@@ -66,17 +72,11 @@ function getPost(article){
   
 
 // local storage //
-let myCart = JSON.parse(localStorage.getItem("produit"));   
-   console.log(myCart);
+let myCart = {
+    id: idProduct,
+    color: colorPicked,
+    quantity: quantityPicked, 
+}
 
-
-   if(myCart) {
-
-   }
-
-   else {
-    myCart = []
-    myCart.push(getPost);
-    localStorage.setItem("produit",JSON.stringify(myCart));
-    console.log(myCart)
-   }
+localStorage.setIteem("produit",JSON.stringify(myCart));
+let produit = JSON.parse(localStorage.getItem(`produit`));}
