@@ -66,8 +66,8 @@ function getPost(article){
     sendBasket.addEventListener('click',sendToCart)
 
     function sendToCart (){
-        alert('Ajout dans le panier')
-        window.location.href ="cart.html";
+        alert('Votre article à été ajouté dans le panier')
+        window.location.href ="index.html";
     }
     
  
