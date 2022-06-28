@@ -57,26 +57,37 @@ function getPost(article){
         productColors.value = colors;
         productColors.innerHTML = colors;
     }
-    addToCart(article);
+  }
 
 
-    //Gestion du panier 
+  // click
+    const sendBasket = document.getElementById("addToCart");
+    
+    sendBasket.addEventListener('click',sendToCart)
 
-    function addToCart(article) {
-    const btn_Panier = document.getElementById("addToCart")
+    function sendToCart (){
+        alert('Ajout dans le panier')
+        window.location.href ="cart.html";
     }
-
- // listening event "click" on addToCart
-
+    
  
-  
+    
+    
 
-// local storage //
-let myCart = {
-    id: idProduct,
-    color: colorPicked,
-    quantity: quantityPicked, 
-}
 
-localStorage.setIteem("produit",JSON.stringify(myCart));
-let produit = JSON.parse(localStorage.getItem(`produit`));}
+
+
+  // local storage 
+ let myCart = {
+    id : idProduct,
+    quantity : quantityPicked, 
+    color : colorPicked,
+ }
+
+
+ let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
+
+ produitLocalStorage =[];
+ localStorage.setItem("produit", JSON.stringify(myCart));
+ console.table(produitLocalStorage);
+ 
