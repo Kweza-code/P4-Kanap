@@ -73,16 +73,19 @@ cartBtn.addEventListener('click', function() {
 	if(cartLocalStorage != null) {
 		cart = JSON.parse(cartLocalStorage);
 	}
-	//if (cartItem.quantity <1 ||
-	//	cartItem.color === ""){
-	//		alert("Pour valider votre choix, veuillez saisir une couleur et ou une quantité")
-	//	}else{
+	if (
+		cartItem.quantity < 1 ||
+		cartItem.color === ""
+	) {
+		alert("Pour validez votre article, veuillez indiquer une couleur et|ou une quantité")
+	}else{
 	cart.push(cartItem);
 	localStorage.setItem("cart", JSON.stringify(cart));
 	//console.table(cartLocalStorage);
 
 	alert('Ajout dans le panier');
 	//window.location.href = "cart.html";
+}	
 });
 
 
