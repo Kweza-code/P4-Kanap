@@ -66,9 +66,9 @@ cartBtn.addEventListener('click', function() {
 		color : colorPicked.value,
 	}
  
-      //if(quantityPicked = 0 && colorPicked = null){
-		//alert('Veuillez choissir un article');
-	 // }
+    
+
+	 
 
 	let cartLocalStorage = localStorage.getItem("cart");
 	let cart = [];
@@ -81,6 +81,15 @@ cartBtn.addEventListener('click', function() {
 
 	alert('Ajout dans le panier');
 	//window.location.href = "cart.html";
+
+	if(quantityPicked.value != null) {
+		alert('Veuillez choisir une couleur et/ou une quantité');
+	 }
+
+	 if(colorPicked.value != null) {
+		alert('Veuillez choisir une couleur et/ou une quantité');
+	 }
+
 });
 
 
