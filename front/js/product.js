@@ -85,7 +85,9 @@ cartBtn.addEventListener('click', function() {
 
 	alert('Ajout dans le panier');
 	//window.location.href = "cart.html";
+
+	//for (let choix of cartItem)
 }	
+
+
 });
-
-

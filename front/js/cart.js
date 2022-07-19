@@ -1,3 +1,8 @@
+let orderId = "";
+
+var url = new URL(window.location.href);
+var idInfo = url.searchParams.get("idFo");
+
 let cartLocalStorage = JSON.parse(localStorage.getItem("cart"));
 
 let productsCount = 0;
@@ -124,5 +129,40 @@ for (let cartItem of cartLocalStorage) {
 		document.getElementById('totalQuantity').innerHTML = productsCount;
 		productsAmount = productsAmount + (parseInt(productQuantity.value) * product.price);
 		document.getElementById('totalPrice').innerHTML = productsAmount;
-	}
+	}	
 )}
+
+const btnValidate = document.querySelector("#order");
+
+
+btnValidate.addEventListener("click", (event) => {
+  event.preventDefault();
+
+//getting the fetch to return on the confirmation page
+function sendToServer() {
+	const sendToServer = fetch("http://localhost:3000/api/products/order")
+      
+      .then((response) => {
+        return response.json();
+      })
+      .then((server) => {
+        orderId = server.orderId;
+        console.log(orderId);
+      });
+
+    if (orderId != "") {
+      location.href = "confirmation.html?id=" + orderId;
+    }
+  }
+})
+
+// Form 
+let contact = {
+    firstName: document.querySelector("#firstName").value,
+    lastName: document.querySelector("#lastName").value,
+    address: document.querySelector("#address").value,
+    city: document.querySelector("#city").value,
+    email: document.querySelector("#email").value,
+  };
+
+  console.log(contact);
