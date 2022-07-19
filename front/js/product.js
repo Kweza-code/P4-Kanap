@@ -86,7 +86,14 @@ cartBtn.addEventListener('click', function() {
 	alert('Ajout dans le panier');
 	//window.location.href = "cart.html";
 
-	//for (let choix of cartItem)
+	for (let choix of cartItem)
+    if ( idProduct === cartItem.id ||
+		color === cartItem.color
+		){
+			cartItem.quantity = cartItem.quantity + 2; 
+		}else{
+			cartItem.quantiy = cartItem.quantity;
+		}
 }	
 
 
