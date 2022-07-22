@@ -1,4 +1,4 @@
-let orderId = "";
+
 
 let cartLocalStorage = JSON.parse(localStorage.getItem("cart"));
 
