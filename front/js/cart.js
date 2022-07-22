@@ -1,8 +1,5 @@
 let orderId = "";
 
-var url = new URL(window.location.href);
-var idInfo = url.searchParams.get("idFo");
-
 let cartLocalStorage = JSON.parse(localStorage.getItem("cart"));
 
 let productsCount = 0;
@@ -132,37 +129,54 @@ for (let cartItem of cartLocalStorage) {
 	}	
 )}
 
-const btnValidate = document.querySelector("#order");
+//Sending information of the client at the LocalStorage
+
+function form(){
+	const btn_send = document.getElementById("order");
+
+	//Listening the cart
+	btn_send.addEventListener("click", (event)=>{
+		
+		//getting the information of the client from the form
+		let inputName = document.getElementById('firstName');
+        let inputLastName = document.getElementById('lastName');
+        let inputAdress = document.getElementById('address');
+        let inputCity = document.getElementById('city');
+        let inputMail = document.getElementById('email');
+	
+
+   const order = {
+	    contact : {
+			firstName: inputName.value,
+            lastName: inputLastName.value,
+            address: inputAdress.value,
+            city: inputCity.value,
+            email: inputMail.value,
+		 },
+	}
+// creating the request 
+	const options = {
+		method: 'POST',
+        body: JSON.stringify(order),
+        headers: {
+            'Accept': 'application/json', 
+            "Content-Type": "application/json" 
+            },
+        };
 
 
-btnValidate.addEventListener("click", (event) => {
-  event.preventDefault();
+		fetch("http://localhost:3000/api/products/order", options)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            localStorage.clear();
+            localStorage.setItem("orderId", data.orderId);
 
-//getting the fetch to return on the confirmation page
-function sendToServer() {
-	const sendToServer = fetch("http://localhost:3000/api/products/order")
-      
-      .then((response) => {
-        return response.json();
-      })
-      .then((server) => {
-        orderId = server.orderId;
-        console.log(orderId);
-      });
-
-    if (orderId != "") {
-      location.href = "confirmation.html?id=" + orderId;
-    }
-  }
-})
-
-// Form 
-let contact = {
-    firstName: document.querySelector("#firstName").value,
-    lastName: document.querySelector("#lastName").value,
-    address: document.querySelector("#address").value,
-    city: document.querySelector("#city").value,
-    email: document.querySelector("#email").value,
-  };
-
-  console.log(contact);
+            document.location.href = "confirmation.html";
+		})
+        .catch((err) => {
+            alert ("Problem with the fetch  : " + err.message);
+        });
+	   })
+}
+form();
