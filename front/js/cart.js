@@ -145,6 +145,10 @@ function form(){
         let inputMail = document.getElementById('email');
 	
 
+		//creation du tableau de Product id ?????
+		let productId = [];
+		
+
    const order = {
 	    contact : {
 			firstName: inputName.value,
