@@ -1,4 +1,4 @@
-
+let copyOfLS = JSON.parse(localStorage.getItem("products"));
 
 let cartLocalStorage = JSON.parse(localStorage.getItem("cart"));
 
@@ -147,7 +147,8 @@ function form(){
 
 		//creation du tableau de Product id ?????
 		let productId = [];
-		
+		productsBought.push(copyOfLS);	
+	    
 
    const order = {
 	    contact : {
@@ -157,7 +158,8 @@ function form(){
             city: inputCity.value,
             email: inputMail.value,
 		 },
-	}
+		 products: productsBought,
+	};
 // creating the request 
 	const options = {
 		method: 'POST',
