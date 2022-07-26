@@ -129,6 +129,98 @@ for (let cartItem of cartLocalStorage) {
 	}	
 )}
 
+
+//Creating Regex
+function getForm() {
+	let info = document.querySelector("cart_order_form");
+
+	let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
+    let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
+    let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
+
+}
+ // Ecoute de la modification du prénom
+ form.firstName.addEventListener('change', function() {
+	validFirstName(this);
+});
+
+// Ecoute de la modification du prénom
+form.lastName.addEventListener('change', function() {
+	validLastName(this);
+});
+
+// Ecoute de la modification du prénom
+form.address.addEventListener('change', function() {
+	validAddress(this);
+});
+
+// Ecoute de la modification du prénom
+form.city.addEventListener('change', function() {
+	validCity(this);
+});
+
+// Ecoute de la modification du prénom
+form.email.addEventListener('change', function() {
+	validEmail(this);
+});
+
+//validation du prénom
+const validFirstName = function(inputFirstName) {
+	let firstNameErrorMsg = inputFirstName.nextElementSibling;
+
+	if (charRegExp.test(inputFirstName.value)) {
+		firstNameErrorMsg.innerHTML = '';
+	} else {
+		firstNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+	}
+};
+
+//validation du nom
+const validLastName = function(inputLastName) {
+	let lastNameErrorMsg = inputLastName.nextElementSibling;
+
+	if (charRegExp.test(inputLastName.value)) {
+		lastNameErrorMsg.innerHTML = '';
+	} else {
+		lastNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+	}
+};
+
+//validation de l'adresse
+const validAddress = function(inputAddress) {
+	let addressErrorMsg = inputAddress.nextElementSibling;
+
+	if (addressRegExp.test(inputAddress.value)) {
+		addressErrorMsg.innerHTML = '';
+	} else {
+		addressErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+	}
+};
+
+//validation de la ville
+const validCity = function(inputCity) {
+	let cityErrorMsg = inputCity.nextElementSibling;
+
+	if (charRegExp.test(inputCity.value)) {
+		cityErrorMsg.innerHTML = '';
+	} else {
+		cityErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+	}
+};
+
+//validation de l'email
+const validEmail = function(inputEmail) {
+	let emailErrorMsg = inputEmail.nextElementSibling;
+
+	if (emailRegExp.test(inputEmail.value)) {
+		emailErrorMsg.innerHTML = '';
+	} else {
+		emailErrorMsg.innerHTML = 'Veuillez renseigner votre email.';
+	}
+};
+
+getForm();
+
 //Sending information of the client at the LocalStorage
 
 function form(){
@@ -138,12 +230,14 @@ function form(){
 	btn_send.addEventListener("click", (event)=>{
 		
 		//getting the information of the client from the form
-		let inputName = document.getElementById('firstName');
-        let inputLastName = document.getElementById('lastName');
-        let inputAdress = document.getElementById('address');
-        let inputCity = document.getElementById('city');
-        let inputMail = document.getElementById('email');
-	
+		let information = {
+			firstName: document.querySelector("#firstName"),
+			lastName: document.querySelector("#lastName"),
+			address: document.querySelector("#address"),
+			city: document.querySelector("#city"),
+			email: document.querySelector("#email"),
+	    };
+		console.log(information);
 
 		//creation du tableau de Product id ?????
 		let productId = [];
