@@ -35,22 +35,22 @@ function renderProductPage(product) {
 
 	// Creating "H1"
 	let productName = document.getElementById('title');
-	productName.innerHTML = product.name;
+	productName.textContent = product.name;
 
 	// Changing the price
 	let productPrice = document.getElementById('price');
-	productPrice.innerHTML = product.price;
+	productPrice.textContent = product.price;
 
 	// Changing the description 
 	let productDescription = document.getElementById('description');
-	productDescription.innerHTML = product.description;
+	productDescription.textContent = product.description;
 
 	// Creating color
-	for(let colors of product.colors) {
-		let productColors = document.createElement("option");
-		productColors.value = colors;
-		productColors.innerHTML = colors;
-		document.getElementById("colors").appendChild(productColors);
+	for(let color of product.colors) {
+		let productColor = document.createElement("option");
+		productColor.value = color;
+		productColor.textContent = color;
+		document.getElementById("colors").appendChild(productColor);
 	}
 }
 
@@ -65,8 +65,6 @@ cartBtn.addEventListener('click', function() {
 		quantity : quantityPicked.value,
 		color : colorPicked.value,
 	}
- 
-      
 
 	let cartLocalStorage = localStorage.getItem("cart");
 	let cart = [];
@@ -78,23 +76,24 @@ cartBtn.addEventListener('click', function() {
 		cartItem.color === ""
 	) {
 		alert("Pour validez votre article, veuillez indiquer une couleur et|ou une quantité")
-	}else{
-	cart.push(cartItem);
-	localStorage.setItem("cart", JSON.stringify(cart));
-	//console.table(cartLocalStorage);
+	}
+	else {
 
-	alert('Ajout dans le panier');
-	//window.location.href = "cart.html";
-
-	for (let choix of cartItem)
-    if ( idProduct === cartItem.id ||
-		color === cartItem.color
-		){
-			cartItem.quantity = cartItem.quantity + 2; 
-		}else{
-			cartItem.quantiy = cartItem.quantity;
+		let index = cart.findIndex(item => (cartItem.id == item.id && cartItem.color == item.color));
+		if(index != -1) {
+			// Handling the case when the product is already in the cart
+			cart[index].quantity = parseInt(cart[index].quantity) + parseInt(cartItem.quantity);
+			localStorage.setItem("cart", JSON.stringify(cart));
 		}
-}	
+		else {
+			// Handling the case when the product is not already in the cart
+			cart.push(cartItem);
+			localStorage.setItem("cart", JSON.stringify(cart));
+		}
 
-
+		// Informing / Redirecting the customer
+		if(window.confirm("Produit ajouté dans le panier, voulez-vous aller sur la page panier ?")) {
+			window.location.href = "cart.html";
+		}
+	}
 });
