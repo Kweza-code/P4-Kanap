@@ -145,11 +145,11 @@ btnSend.addEventListener("click", (event) => {
 function validateForm() {
 	let validation = true;
 
-	/*
+	
 			let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
 			let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
 			let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
-	*/
+
 
 	// Testing firstName
 	let firstNameInput = document.getElementById('firstName');
@@ -166,22 +166,49 @@ function validateForm() {
 	// Testing lastName
 	let lastNameInput = document.getElementById('lastName')
 	let lastNameError = document.getElementById('lastNameErrorMsg')
-	let lastNameRegex = document.getElementById('lastName')
+	let lastNameRegex = new RegExp("^[a-zA-Z ,.'-]+$");
+	if(lastNameRegex.test(lastNameInput.value)){
+		lastNameError.textContent = "";
+	}else{
+		lastNameError.textContent = "LastName is invalid";
+		validation = false;
+	}
 	// @todo
 
 	// Testing address
 	let addressInput = document.getElementById('adress')
 	let addressError = document.getElementById('addressErrorMsg')
+	let adressRegex = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
+	if(adressRegex.test(adressInput.value)){
+		addressError.textContent = "";
+	}else{
+		addressError.textContent = "Adress is invalid";
+		validation = false;
+	}
 	// @todo
 
 	// Testing city
 	let cityInput = document.getElementById ('city')
 	let cityError = document.getElementById('cityErrorMsg')
+	let cityRegex = new RegExp("^[a-zA-Z ,.'-]+$");
+	if(cityRegex.test(cityInput.value)){
+		cityError.textContent = "";
+	}else{
+		cityError.textContent = "City is invalid";
+		validation = false;
+	}
 	// @todo
 
 	// Testing email
     let mailInput = document.getElementById('email')
 	let mailError = document.getElementById('mailErrorMsg')
+	let mailRegex = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
+	if(mailRegex.test(mailInput.value)){
+		mailError.textContent = "";
+	}else{
+		mailError.textContent = "Mail is invalid";
+		validation = f
+	}
 	// @todo
 
 	return validation;
