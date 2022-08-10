@@ -1,5 +1,5 @@
-var url = new URL(window.location.href);
-var idProduct = url.searchParams.get("id");
+
+var idProduct = getUrlParam("id")
 //console.log(idProduct);
 
 fetchProduct();

@@ -164,23 +164,28 @@ function validateForm() {
 	}
 
 	// Testing lastName
-	//document.getElementById('lastName')
+	let lastNameInput = document.getElementById('lastName')
+	let lastNameError = document.getElementById('lastNameErrorMsg')
+	let lastNameRegex = document.getElementById('lastName')
 	// @todo
 
 	// Testing address
-	//document.getElementById('address')
+	let addressInput = document.getElementById('adress')
+	let addressError = document.getElementById('addressErrorMsg')
 	// @todo
 
 	// Testing city
-	//document.getElementById('city')
+	let cityInput = document.getElementById ('city')
+	let cityError = document.getElementById('cityErrorMsg')
 	// @todo
 
 	// Testing email
-	//document.getElementById('email')
+    let mailInput = document.getElementById('email')
+	let mailError = document.getElementById('mailErrorMsg')
 	// @todo
 
 	return validation;
-}
+
 
 function sendForm() {
 	// Getting form data
