@@ -57,40 +57,17 @@ function renderProductPage(product) {
 // Listening 'click' on cart button
 const cartBtn = document.getElementById("addToCart");
 cartBtn.addEventListener('click', function() {
-	const colorPicked = document.getElementById("colors");
 	const quantityPicked = document.getElementById("quantity");
-
-	let cartItem = {
-		id : idProduct,
-		quantity : quantityPicked.value,
-		color : colorPicked.value,
-	}
-
-	let cartLocalStorage = localStorage.getItem("cart");
-	let cart = [];
-	if(cartLocalStorage != null) {
-		cart = JSON.parse(cartLocalStorage);
-	}
+	const colorPicked = document.getElementById("colors");
+	let cart = getCart();
 	if (
-		cartItem.quantity < 1 ||
-		cartItem.color === ""
+		quantityPicked < 1 ||
+		colorPicked === ""
 	) {
 		alert("Pour validez votre article, veuillez indiquer une couleur et|ou une quantité")
 	}
 	else {
-
-		let index = cart.findIndex(item => (cartItem.id == item.id && cartItem.color == item.color));
-		if(index != -1) {
-			// Handling the case when the product is already in the cart
-			cart[index].quantity = parseInt(cart[index].quantity) + parseInt(cartItem.quantity);
-			localStorage.setItem("cart", JSON.stringify(cart));
-		}
-		else {
-			// Handling the case when the product is not already in the cart
-			cart.push(cartItem);
-			localStorage.setItem("cart", JSON.stringify(cart));
-		}
-
+		addProductToCart(idProduct, colorPicked, quantityPicked);
 		// Informing / Redirecting the customer
 		if(window.confirm("Produit ajouté dans le panier, voulez-vous aller sur la page panier ?")) {
 			window.location.href = "cart.html";

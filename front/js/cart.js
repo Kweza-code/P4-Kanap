@@ -1,10 +1,10 @@
-let cartLocalStorage = JSON.parse(localStorage.getItem("cart"));
+let cart = getCart();
 
 let productsCount = 0;
 let productsAmount = 0;
 
 // Looping on cart items
-for (let cartItem of cartLocalStorage) {
+for (let cartItem of cart) {
 	// Getting missing data from API
 	fetch("http://localhost:3000/api/products/" + cartItem.id)
 	.then(function(res) {
@@ -100,23 +100,39 @@ for (let cartItem of cartLocalStorage) {
 		// Deleting the product from LocalStorage
 		productSupprimer.addEventListener("click" , (event) => {
 			event.preventDefault();
-			let index = cartLocalStorage.findIndex(item => (cartItem.id == item.id && cartItem.color == item.color));
+
+
+
+
+
+			let index = findProductFromCart(cartItem.id, cartItem.color);
 			if(index != -1) {
-				cartLocalStorage.splice(index, 1);
-				localStorage.setItem("cart", JSON.stringify(cartLocalStorage));
+				cart.splice(index, 1);
+				saveCart(cart);
 				window.location.reload();
 			}
+
+
+
+
+
 		});
 
 		// Updating the product quantity in LocalStorage
 		productQuantity.addEventListener("change" , (event) => {
 			event.preventDefault();
-			let index = cartLocalStorage.findIndex(item => (cartItem.id == item.id && cartItem.color == item.color));
+
+
+
+			let index = findProductFromCart(cartItem.id, cartItem.color);
 			if(index != -1) {
-				cartLocalStorage[index].quantity = productQuantity.value;
-				localStorage.setItem("cart", JSON.stringify(cartLocalStorage));
+				cart[index].quantity = productQuantity.value;
+				saveCart(cart);
 				window.location.reload();
 			}
+
+
+
 		});
 
 		// Getting the total of articles
@@ -126,8 +142,6 @@ for (let cartItem of cartLocalStorage) {
 		document.getElementById('totalPrice').textContent = productsAmount;
 	}
 )}
-
-
 
 // Sending customer informations and products IDs to backend API
 
@@ -145,16 +159,10 @@ btnSend.addEventListener("click", (event) => {
 function validateForm() {
 	let validation = true;
 
-	
-			let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
-			let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
-			let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
-
-
 	// Testing firstName
 	let firstNameInput = document.getElementById('firstName');
 	let firstNameError = document.getElementById('firstNameErrorMsg');
-	let firstNameRegex = new RegExp("^[a-zA-Z ,.'-]+$");
+	let firstNameRegex = new RegExp("^[a-zA-Z ,.'-àâäéèêëïîôöùûüç]+$");
 	if(firstNameRegex.test(firstNameInput.value)) {
 		firstNameError.textContent = "";
 	}
@@ -166,53 +174,53 @@ function validateForm() {
 	// Testing lastName
 	let lastNameInput = document.getElementById('lastName')
 	let lastNameError = document.getElementById('lastNameErrorMsg')
-	let lastNameRegex = new RegExp("^[a-zA-Z ,.'-]+$");
+	let lastNameRegex = new RegExp("^[a-zA-Z ,.'-àâäéèêëïîôöùûüç]+$");
 	if(lastNameRegex.test(lastNameInput.value)){
 		lastNameError.textContent = "";
-	}else{
+	}
+	else{
 		lastNameError.textContent = "LastName is invalid";
 		validation = false;
 	}
-	// @todo
 
 	// Testing address
-	let addressInput = document.getElementById('adress')
-	let addressError = document.getElementById('addressErrorMsg')
-	let adressRegex = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
-	if(adressRegex.test(adressInput.value)){
+	let addressInput = document.getElementById('address');
+	let addressError = document.getElementById('addressErrorMsg');
+	let addressRegex = new RegExp("^[0-9]{0,4}[ ,.'-a-zA-Zàâäéèêëïîôöùûüç]+");
+	if(addressRegex.test(addressInput.value)){
 		addressError.textContent = "";
-	}else{
+	}
+	else{
 		addressError.textContent = "Adress is invalid";
 		validation = false;
 	}
-	// @todo
 
 	// Testing city
-	let cityInput = document.getElementById ('city')
-	let cityError = document.getElementById('cityErrorMsg')
-	let cityRegex = new RegExp("^[a-zA-Z ,.'-]+$");
+	let cityInput = document.getElementById ('city');
+	let cityError = document.getElementById('cityErrorMsg');
+	let cityRegex = new RegExp("^[a-zA-Z ,.'-àâäéèêëïîôöùûüç]+$");
 	if(cityRegex.test(cityInput.value)){
 		cityError.textContent = "";
-	}else{
+	}
+	else{
 		cityError.textContent = "City is invalid";
 		validation = false;
 	}
-	// @todo
 
 	// Testing email
-    let mailInput = document.getElementById('email')
-	let mailError = document.getElementById('mailErrorMsg')
+	let mailInput = document.getElementById('email');
+	let mailError = document.getElementById('emailErrorMsg');
 	let mailRegex = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
 	if(mailRegex.test(mailInput.value)){
 		mailError.textContent = "";
-	}else{
-		mailError.textContent = "Mail is invalid";
-		validation = f
 	}
-	// @todo
+	else{
+		mailError.textContent = "Mail is invalid";
+		validation = false;
+	}
 
 	return validation;
-
+}
 
 function sendForm() {
 	// Getting form data
@@ -227,7 +235,7 @@ function sendForm() {
 
 	// Getting products IDs from cart
 	let productsIds = [];
-	for(let cartItem of cartLocalStorage) {
+	for(let cartItem of cart) {
 		productsIds.push(cartItem.id);
 	}
 	//console.log(productsIds);
