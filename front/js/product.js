@@ -1,11 +1,13 @@
+let validator = true;
+var idProduct = getUrlParam("id");
 
-var idProduct = getUrlParam("id")
-//console.log(idProduct);
+console.log(idProduct);
 
-fetchProduct();
+
 
 // Get product data in array from API
 function fetchProduct() {
+
 	fetch("http://localhost:3000/api/products/" + idProduct)
 	.then(function(res) {
 		if(res.ok) {
@@ -24,6 +26,14 @@ function fetchProduct() {
 		console.log(err);
 	});
 }
+
+ if(idProduct === undefined){
+	document.querySelector('.item article').textContent = "Impossible d'afficher la page";
+}else{
+	fetchProduct()
+}
+
+
 
 // Render the product page
 function renderProductPage(product) {
@@ -53,6 +63,8 @@ function renderProductPage(product) {
 		document.getElementById("colors").appendChild(productColor);
 	}
 }
+
+ 
 
 // Listening 'click' on cart button
 const cartBtn = document.getElementById("addToCart");

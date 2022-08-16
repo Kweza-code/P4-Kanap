@@ -25,11 +25,22 @@ function findProductFromCart(productId = '', productColor = '') {
 }
 
 function deleteProductToCart(productId = '', productColor = '') {
-
+	let index = findProductFromCart(productId, productColor);
+	if(index != -1) {
+		cart.splice(index, 1);
+		saveCart(cart);
+		window.location.reload();
+	}
 }
 
 function updateProductQuantityFromCart(productId = '', productColor = '', quantity = 0) {
-
+	let index = findProductFromCart(productId, productColor);
+	let cart = getCart();
+	if(index != -1) {
+		cart[index].quantity = productQuantity.value;
+		saveCart(cart);
+		window.location.reload();
+	}
 }
 
 function addProductToCart(productId = '', productColor = '', quantity = 0) {
