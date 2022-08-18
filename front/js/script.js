@@ -8,7 +8,7 @@ fetch("http://localhost:3000/api/products")
 .then(function(value) {
 
 	let products = value;
-	console.log(products);
+	//console.log(products);
 
 	// Looping on products array
 	for(const product of products) {

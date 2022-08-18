@@ -1,13 +1,15 @@
-let validator = true;
-var idProduct = getUrlParam("id");
+let idProduct = getUrlParam("id");
+//console.log(idProduct);
 
-console.log(idProduct);
-
-
+if(idProduct === null || idProduct === '' || idProduct === undefined) {
+	document.querySelector('.item article').textContent = "Impossible d'afficher la page";
+}
+else {
+	fetchProduct();
+}
 
 // Get product data in array from API
 function fetchProduct() {
-
 	fetch("http://localhost:3000/api/products/" + idProduct)
 	.then(function(res) {
 		if(res.ok) {
@@ -17,23 +19,13 @@ function fetchProduct() {
 	.then(function(value) {
 		let product = value;
 		//console.log(product);
-		if(product) {
-			renderProductPage(product);
-		}
+		renderProductPage(product);
 	})
 	.catch(function(err) {
 		console.log("Erreur de la requête API , Veuillez vérifier que le serveur est bien en ligne ou bien  contacté nous pour autre soucis ");
 		console.log(err);
 	});
 }
-
- if(idProduct === undefined){
-	document.querySelector('.item article').textContent = "Impossible d'afficher la page";
-}else{
-	fetchProduct()
-}
-
-
 
 // Render the product page
 function renderProductPage(product) {
@@ -64,25 +56,25 @@ function renderProductPage(product) {
 	}
 }
 
- 
-
 // Listening 'click' on cart button
 const cartBtn = document.getElementById("addToCart");
-cartBtn.addEventListener('click', function() {
-	const quantityPicked = document.getElementById("quantity");
-	const colorPicked = document.getElementById("colors");
-	let cart = getCart();
-	if (
-		quantityPicked < 1 ||
-		colorPicked === ""
-	) {
-		alert("Pour validez votre article, veuillez indiquer une couleur et|ou une quantité")
-	}
-	else {
-		addProductToCart(idProduct, colorPicked, quantityPicked);
-		// Informing / Redirecting the customer
-		if(window.confirm("Produit ajouté dans le panier, voulez-vous aller sur la page panier ?")) {
-			window.location.href = "cart.html";
+if(cartBtn !== null) {
+	cartBtn.addEventListener('click', function(event) {
+		const quantityPicked = document.getElementById("quantity").value;
+		const colorPicked = document.getElementById("colors").value;
+		let cart = getCart();
+		if (
+			quantityPicked < 1 ||
+			colorPicked === ""
+		) {
+			alert("Pour validez votre article, veuillez indiquer une couleur et|ou une quantité")
 		}
-	}
-});
+		else {
+			addProductToCart(idProduct, colorPicked, quantityPicked);
+			// Informing / Redirecting the customer
+			if(window.confirm("Produit ajouté dans le panier, voulez-vous aller sur la page panier ?")) {
+				window.location.href = "cart.html";
+			}
+		}
+	});
+}

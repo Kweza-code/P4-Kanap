@@ -1,6 +1,5 @@
 
-function getUrlParam(paramName = "")
-{
+function getUrlParam(paramName = "") {
 	var url = new URL(window.location.href);
 	var result = url.searchParams.get(paramName);
 	return result;
@@ -20,26 +19,26 @@ function saveCart(cart = []) {
 }
 
 function findProductFromCart(productId = '', productColor = '') {
+	let cart = getCart();
 	let index = cart.findIndex(item => (productId == item.id && productColor == item.color));
 	return index;
 }
 
 function deleteProductToCart(productId = '', productColor = '') {
+	let cart = getCart();
 	let index = findProductFromCart(productId, productColor);
 	if(index != -1) {
 		cart.splice(index, 1);
 		saveCart(cart);
-		window.location.reload();
 	}
 }
 
 function updateProductQuantityFromCart(productId = '', productColor = '', quantity = 0) {
-	let index = findProductFromCart(productId, productColor);
 	let cart = getCart();
+	let index = findProductFromCart(productId, productColor);
 	if(index != -1) {
 		cart[index].quantity = productQuantity.value;
 		saveCart(cart);
-		window.location.reload();
 	}
 }
 
