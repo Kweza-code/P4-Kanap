@@ -37,7 +37,7 @@ function updateProductQuantityFromCart(productId = '', productColor = '', quanti
 	let cart = getCart();
 	let index = findProductFromCart(productId, productColor);
 	if(index != -1) {
-		cart[index].quantity = productQuantity.value;
+		cart[index].quantity = quantity;
 		saveCart(cart);
 	}
 }
