@@ -70,7 +70,7 @@ if(cartBtn !== null) {
 		const colorPicked = document.getElementById("colors").value;
 		let cart = getCart();
 		if (
-			quantityPicked < 1 ||
+			quantityPicked < -1 ||
 			colorPicked === ""
 		) {
 			alert("Pour validez votre article, veuillez indiquer une couleur et|ou une quantité")
