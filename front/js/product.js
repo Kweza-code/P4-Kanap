@@ -2,7 +2,7 @@ let idProduct = getUrlParam("id");
 //console.log(idProduct);
 
 if(idProduct === null || idProduct === '' || idProduct === undefined) {
-	document.querySelector('.item article').textContent = "Impossible d'afficher la page";
+	renderProductPageError();
 }
 else {
 	fetchProduct();
@@ -22,9 +22,15 @@ function fetchProduct() {
 		renderProductPage(product);
 	})
 	.catch(function(err) {
+		renderProductPageError();
 		console.log("Erreur de la requête API , Veuillez vérifier que le serveur est bien en ligne ou bien  contacté nous pour autre soucis ");
 		console.log(err);
 	});
+}
+
+// Render the product page error
+function renderProductPageError() {
+	document.querySelector('.item article').textContent = "Impossible d'afficher la page";
 }
 
 // Render the product page
@@ -77,4 +83,4 @@ if(cartBtn !== null) {
 			}
 		}
 	});
-}
+}																				
