@@ -6,7 +6,7 @@ if(orderId === null || orderId === '' || orderId === undefined) {
 	document.querySelector('.confirmation p').textContent = "Impossible d'afficher la page";
 }
 else {
-	let orderIdSpan = document.getElementById('orderId');
+	const orderIdSpan = document.getElementById('orderId');
 	orderIdSpan.textContent = orderId;
 	saveCart([]);
 }

@@ -63,3 +63,5 @@ function addProductToCart(productId = '', productColor = '', quantity = 0) {
 	return true;
 }
 
+
+
