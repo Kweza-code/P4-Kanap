@@ -209,11 +209,11 @@ function validateForm() {
 function sendForm() {
 	// Getting form data
 	let contactData = {
-		firstName: document.querySelector("#firstName"),
-		lastName: document.querySelector("#lastName"),
-		address: document.querySelector("#address"),
-		city: document.querySelector("#city"),
-		email: document.querySelector("#email"),
+		firstName: document.querySelector("#firstName").value,
+		lastName: document.querySelector("#lastName").value,
+		address: document.querySelector("#address").value,
+		city: document.querySelector("#city").value,
+		email: document.querySelector("#email").value,
 	};
 	//console.log(contactData);
 
